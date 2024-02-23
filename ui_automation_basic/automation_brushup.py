@@ -5,20 +5,16 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
-import time
+from datetime import datetime
+import PyPDF2
 from csv import DictWriter
 from pynput.keyboard import Key ,Controller
 from selenium.webdriver.chrome.options import Options
 
 
-
-
-options=Options()
-options.add_experimental_option("prefs",{"download.default_directory":"/home/lagnesh/Desktop"})
 service_obj= Service("/home/lagnesh/interview_practice/utility/chromedriver")
-options.enable_downloads
 
-driver=webdriver.Chrome(service=service_obj,options=options)
+driver=webdriver.Chrome(service=service_obj)
 # Test Case 1:
 # Go to Google.com
 # Enter "IPL points table 2021" in search box
@@ -41,7 +37,7 @@ driver.find_element(By.XPATH,'//*[@id="APjFqb"]').send_keys(Keys.ENTER)
 driver.get("https://www.iplt20.com/points-table/men/2021")
 teams=driver.find_elements(By.XPATH,'//*[@id="pointsdata"]/tr')
 rank=0
-with open('./../data/data.csv','w') as f:
+with open('./data/data.csv','w') as f:
     csv_writer=DictWriter(f,fieldnames=["Rank","Team Name", "Points"])
     csv_writer.writeheader()
     for i in teams:
@@ -61,7 +57,7 @@ f.close()
 driver.get("https://convertio.co/csv-pdf/")
 driver.find_element(By.XPATH,'//*[@class="file-source-button"]/label').click()
 keyboard= Controller()
-keyboard.type('/home/lagnesh/interview_practice/data/data.csv')
+keyboard.type('/home/lagnesh/interview_practice/ui_automation_basic/data/data.csv')
 keyboard.press(Key.enter)
 keyboard.release(Key.enter)
 wait=WebDriverWait(driver,20)
@@ -70,7 +66,21 @@ driver.find_element(By.XPATH,'//*[@class="btn btn-xl btn-primary"]').click()
 wait.until(expected_conditions.visibility_of_element_located((By.XPATH,'//*[@class="btn btn-sm btn-blue"]')))
 driver.find_element(By.XPATH,'//*[@class="btn btn-sm btn-blue"]').click()
 
+# Test Case 4:
+# Read the Downloaded Test Case-3 PDF file and log to Console.
+with open('/home/lagnesh/Downloads/data.pdf', 'rb') as f:
+    pdf_pages=PyPDF2.PdfReader(f)
+    print(len(pdf_pages.pages))
+    page=pdf_pages.pages[0]
+    text=page.extract_text()
+    print(text)
+    f.close()
 
+# Test Case 5:
+# Print current date on Console in format " 17 - May - 2021 "
+date=datetime.today()
+formated_time=date.strftime("%d-%b-%Y")
+print(formated_time)
 
 
 
