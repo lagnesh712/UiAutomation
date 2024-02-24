@@ -20,6 +20,7 @@ driver=webdriver.Chrome(service=service_obj)
 # Enter "IPL points table 2021" in search box
 # Capture all the Suggestions from the search box and store in List
 # Search for "ipl points table 2021" in list & Google it by Pressing Enter(Google Search) with use of Key Press
+print("Test case 1:- Search for 'ipl points table 2021' in list & Google it by Pressing Enter")
 driver.get("https://www.google.com")
 driver.find_element(By.XPATH,'//*[@id="APjFqb"]').send_keys("IPl points table 2021")
 wait=WebDriverWait(driver,10)
@@ -34,6 +35,7 @@ driver.find_element(By.XPATH,'//*[@id="APjFqb"]').send_keys(Keys.ENTER)
 # Go To https://www.iplt20.com/points-table/men/2021
 # From the Points Table Get Details of Team(Rank ,Team Name , Points) who has Points greater than 8.
 # Store the captured details in CSV file.
+print("Test case2:- go to iplt20.com and From the Points Table Get Details of Team who has Points greater than 8. and store in a csv file")
 driver.get("https://www.iplt20.com/points-table/men/2021")
 teams=driver.find_elements(By.XPATH,'//*[@id="pointsdata"]/tr')
 rank=0
@@ -54,6 +56,7 @@ f.close()
 # Upload Test Case-2 Result CSV file on https://www.zamzar.com/convert/csv-to-pdf/
 # Convert into PDF using website engine.
 # Download and Save the PDF file on Desktop.
+print("Test case 3:- Upload Test Case-2 Result CSV file on https://www.zamzar.com/convert/csv-to-pdf/ convert into pdf and Download it on desktop ")
 driver.get("https://convertio.co/csv-pdf/")
 driver.find_element(By.XPATH,'//*[@class="file-source-button"]/label').click()
 keyboard= Controller()
@@ -68,6 +71,7 @@ driver.find_element(By.XPATH,'//*[@class="btn btn-sm btn-blue"]').click()
 
 # Test Case 4:
 # Read the Downloaded Test Case-3 PDF file and log to Console.
+print("Test case4:- Read the Downloaded Test Case-3 PDF file and log to Console")
 with open('/home/lagnesh/Downloads/data.pdf', 'rb') as f:
     pdf_pages=PyPDF2.PdfReader(f)
     print(len(pdf_pages.pages))
@@ -78,6 +82,7 @@ with open('/home/lagnesh/Downloads/data.pdf', 'rb') as f:
 
 # Test Case 5:
 # Print current date on Console in format " 17 - May - 2021 "
+print("Test case5:- Print current date on Console in format '17 - May - 2021'")
 date=datetime.today()
 formated_time=date.strftime("%d-%b-%Y")
 print(formated_time)
