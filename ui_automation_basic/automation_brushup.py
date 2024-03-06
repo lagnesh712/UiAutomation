@@ -22,6 +22,7 @@ driver=webdriver.Chrome(service=service_obj)
 # Search for "ipl points table 2021" in list & Google it by Pressing Enter(Google Search) with use of Key Press
 print("Test case 1:- Search for 'ipl points table 2021' in list & Google it by Pressing Enter")
 driver.get("https://www.google.com")
+driver.maximize_window()
 driver.find_element(By.XPATH,'//*[@id="APjFqb"]').send_keys("IPl points table 2021")
 wait=WebDriverWait(driver,10)
 wait.until(expected_conditions.presence_of_all_elements_located((By.XPATH,'//*[@class="G43f7e"]/li')))
